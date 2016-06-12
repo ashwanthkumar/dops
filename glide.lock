@@ -1,8 +1,105 @@
-hash: 85e350ee770859719e5e07b9c7c1c86d7d49cb3aded70a71c8157e8f1a95d5bc
-updated: 2016-06-12T07:16:17.4470112+05:30
+hash: b12ec18e3d45fb67674068b09af9c5585c16d1aa966e24c14d04b63b01236843
+updated: 2016-06-12T10:04:48.607873863+05:30
 imports:
+- name: github.com/docker/distribution
+  version: c8dff1bb5764aa6ea48d261b813ef3b0d2e25989
+  subpackages:
+  - digest
+  - manifest/schema1
+  - registry/client
+  - context
+  - reference
+  - manifest
+  - registry/api/errcode
+  - registry/api/v2
+  - registry/client/transport
+  - registry/storage/cache
+  - registry/storage/cache/memory
+  - manifest/manifestlist
+  - manifest/schema2
+  - registry/client/auth
+  - uuid
+- name: github.com/docker/docker
+  version: 508a17baba3c39496008fc5b5e3fe890b8a1b31b
+  subpackages:
+  - reference
+  - cliconfig
+  - distribution
+  - registry
+  - image
+  - image/v1
+  - pkg/homedir
+  - api
+  - distribution/metadata
+  - distribution/xfer
+  - dockerversion
+  - layer
+  - pkg/ioutils
+  - pkg/progress
+  - pkg/stringid
+  - opts
+  - pkg/httputils
+  - pkg/mflag
+  - pkg/tarsum
+  - pkg/version
+  - pkg/system
+  - pkg/archive
+  - pkg/parsers/kernel
+  - pkg/useragent
+  - daemon/graphdriver
+  - pkg/idtools
+  - pkg/random
+  - pkg/jsonmessage
+  - pkg/fileutils
+  - pkg/pools
+  - pkg/promise
+  - pkg/chrootarchive
+  - pkg/jsonlog
+  - pkg/term
+  - pkg/reexec
+- name: github.com/docker/engine-api
+  version: d06b85b29e37346a050f335042e16e6e8a9f49da
+  subpackages:
+  - types
+  - types/registry
+  - types/container
+  - types/filters
+  - types/network
+  - types/blkiodev
+  - types/strslice
+  - types/versions
+- name: github.com/docker/go-connections
+  version: 990a1a1a70b0da4c4cb70e117971a4f0babfbf1a
+  subpackages:
+  - tlsconfig
+  - nat
+- name: github.com/docker/go-units
+  version: 09dda9d4b0d748c57c14048906d3d094a58ec0c9
+- name: github.com/docker/libtrust
+  version: 9cbd2a1374f46905c68a4eb3694a130610adc62a
+- name: github.com/gorilla/context
+  version: 14f550f51af52180c2eefed15e5fd18d63c0a64a
+- name: github.com/gorilla/mux
+  version: e444e69cbd2e2e3e0749a2f3c717cec491552bbf
+- name: github.com/opencontainers/runc
+  version: a513998702d02a8bb3d2444660869ed3a677680c
+  subpackages:
+  - libcontainer/user
+- name: github.com/Sirupsen/logrus
+  version: 55eb11d21d2a31a3cc93838241d04800f52e823d
 - name: github.com/spf13/cobra
   version: 1238ba19d24b0b9ceee2094e1cb31947d45c3e86
 - name: github.com/spf13/pflag
   version: 367864438f1b1a3c7db4da06a2f55b144e6784e0
+- name: github.com/vbatts/tar-split
+  version: 226f7c74905f1fcc08ac128b517a1d65a1948eb9
+  subpackages:
+  - tar/asm
+  - tar/storage
+  - archive/tar
+- name: golang.org/x/net
+  version: 2cba614e8ff920c60240d2677bc019af32ee04e5
+  subpackages:
+  - context
+  - trace
 devImports: []
