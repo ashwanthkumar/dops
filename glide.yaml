@@ -7,3 +7,4 @@ import:
   version: c8dff1bb5764aa6ea48d261b813ef3b0d2e25989
 - package: github.com/docker/libtrust
   version: 9cbd2a1374f46905c68a4eb3694a130610adc62a
+- package: github.com/anacrolix/torrent

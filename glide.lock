@@ -1,6 +1,40 @@
-hash: b12ec18e3d45fb67674068b09af9c5585c16d1aa966e24c14d04b63b01236843
-updated: 2016-06-12T10:04:48.607873863+05:30
+hash: 4cea2fcf88bec2b7649a06fc59fb68fde645c2c557e8939b303287d98ad59709
+updated: 2016-06-18T14:12:25.202374122+05:30
 imports:
+- name: github.com/anacrolix/missinggo
+  version: b58ed0d2d777019fbe0b01fb30eb3137826ec4b8
+  subpackages:
+  - bitmap
+  - itertools
+  - perf
+  - pproffd
+  - prioritybitmap
+  - pubsub
+  - orderedmap
+  - resource
+  - httptoo
+  - inproc
+- name: github.com/anacrolix/sync
+  version: 812602587b72df6a2a4f6e30536adc75394a374b
+- name: github.com/anacrolix/torrent
+  version: 9b48d0c7a5bcdc3607d7c797aeb66f7a5f29908c
+  subpackages:
+  - bencode
+  - dht
+  - dht/krpc
+  - iplist
+  - metainfo
+  - mse
+  - peer_protocol
+  - storage
+  - tracker
+  - util
+  - logonce
+  - mmap_span
+- name: github.com/anacrolix/utp
+  version: d7ad5aff2b8a5fa415d1c1ed00b71cfd8b4c69e0
+- name: github.com/bradfitz/iter
+  version: 454541ec3da2a73fc34fd049b19ee5777bf19345
 - name: github.com/docker/distribution
   version: c8dff1bb5764aa6ea48d261b813ef3b0d2e25989
   subpackages:
@@ -77,6 +111,12 @@ imports:
   version: 09dda9d4b0d748c57c14048906d3d094a58ec0c9
 - name: github.com/docker/libtrust
   version: 9cbd2a1374f46905c68a4eb3694a130610adc62a
+- name: github.com/dustin/go-humanize
+  version: 499693e27ee0d14ffab67c31ad065fdb3d34ea75
+- name: github.com/edsrzf/mmap-go
+  version: 935e0e8a636ca4ba70b713f3e38a19e1b77739e8
+- name: github.com/google/btree
+  version: 7d79101e329e5a3adf994758c578dab82b90c017
 - name: github.com/gorilla/context
   version: 14f550f51af52180c2eefed15e5fd18d63c0a64a
 - name: github.com/gorilla/mux
@@ -85,18 +125,30 @@ imports:
   version: a513998702d02a8bb3d2444660869ed3a677680c
   subpackages:
   - libcontainer/user
+- name: github.com/RoaringBitmap/roaring
+  version: e9cfdabbfbe11865b64a7658d83c1b6fc3bf92ec
+- name: github.com/ryszard/goskiplist
+  version: 2dfbae5fcf46374f166f8969cb07e167f1be6273
+  subpackages:
+  - skiplist
 - name: github.com/Sirupsen/logrus
   version: 55eb11d21d2a31a3cc93838241d04800f52e823d
 - name: github.com/spf13/cobra
   version: 1238ba19d24b0b9ceee2094e1cb31947d45c3e86
 - name: github.com/spf13/pflag
   version: 367864438f1b1a3c7db4da06a2f55b144e6784e0
+- name: github.com/tylertreat/BoomFilters
+  version: ae0b9585d4b87b2fe0b49ee09270abae7aaad179
 - name: github.com/vbatts/tar-split
   version: 226f7c74905f1fcc08ac128b517a1d65a1948eb9
   subpackages:
   - tar/asm
   - tar/storage
   - archive/tar
+- name: github.com/willf/bitset
+  version: 2e6e8094ef4745224150c88c16191c7dceaad16f
+- name: github.com/willf/bloom
+  version: aa3071d9203598166c09553d43e74b588c3d91be
 - name: golang.org/x/net
   version: 2cba614e8ff920c60240d2677bc019af32ee04e5
   subpackages:
