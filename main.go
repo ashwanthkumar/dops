@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"github.com/ashwanthkumar/dops/cmd"
 )
 
 // Version of the app
