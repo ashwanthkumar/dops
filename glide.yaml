@@ -8,3 +8,4 @@ import:
 - package: github.com/docker/libtrust
   version: 9cbd2a1374f46905c68a4eb3694a130610adc62a
 - package: github.com/anacrolix/torrent
+- package: gopkg.in/cheggaaa/pb.v1

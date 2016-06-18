@@ -1,5 +1,5 @@
-hash: 4cea2fcf88bec2b7649a06fc59fb68fde645c2c557e8939b303287d98ad59709
-updated: 2016-06-18T14:12:25.202374122+05:30
+hash: c1582a9779a406bb34be738806118de922d0b333a178cf7993704f0101d99840
+updated: 2016-06-18T18:26:52.760105354+05:30
 imports:
 - name: github.com/anacrolix/missinggo
   version: b58ed0d2d777019fbe0b01fb30eb3137826ec4b8
@@ -56,17 +56,17 @@ imports:
 - name: github.com/docker/docker
   version: 508a17baba3c39496008fc5b5e3fe890b8a1b31b
   subpackages:
-  - reference
   - cliconfig
   - distribution
+  - reference
   - registry
-  - image
-  - image/v1
   - pkg/homedir
   - api
   - distribution/metadata
   - distribution/xfer
   - dockerversion
+  - image
+  - image/v1
   - layer
   - pkg/ioutils
   - pkg/progress
@@ -75,8 +75,8 @@ imports:
   - pkg/httputils
   - pkg/mflag
   - pkg/tarsum
-  - pkg/version
   - pkg/system
+  - pkg/version
   - pkg/archive
   - pkg/parsers/kernel
   - pkg/useragent
@@ -154,4 +154,6 @@ imports:
   subpackages:
   - context
   - trace
+- name: gopkg.in/cheggaaa/pb.v1
+  version: 8808370bf63524e115da1371ba42bce6739f3a6b
 devImports: []
