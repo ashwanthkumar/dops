@@ -10,3 +10,5 @@ import:
 - package: github.com/anacrolix/torrent
 - package: gopkg.in/cheggaaa/pb.v1
 - package: github.com/chihaya/chihaya
+- package: github.com/julienschmidt/httprouter
+- package: github.com/mitchellh/go-homedir

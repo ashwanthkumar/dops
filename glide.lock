@@ -1,5 +1,5 @@
-hash: efc090cfcaff3bce1c97a1a48c99f71e55898b5a0c21eda31b65a2ba024ee5a2
-updated: 2016-06-19T11:56:33.451842909+05:30
+hash: 42387a2b03219ecd15e1f310c5bb53e239afbf7f3fc80b08880ab2923aae895b
+updated: 2016-06-19T23:13:08.961508482+05:30
 imports:
 - name: github.com/anacrolix/missinggo
   version: b58ed0d2d777019fbe0b01fb30eb3137826ec4b8
@@ -38,7 +38,11 @@ imports:
 - name: github.com/chihaya/chihaya
   version: b9900b2e127f63f3563f10043ad97ec8c82c082b
   subpackages:
+  - server
+  - tracker
+  - pkg/bencode
   - pkg/event
+  - server/http/query
 - name: github.com/docker/distribution
   version: c8dff1bb5764aa6ea48d261b813ef3b0d2e25989
   subpackages:
@@ -125,6 +129,10 @@ imports:
   version: 14f550f51af52180c2eefed15e5fd18d63c0a64a
 - name: github.com/gorilla/mux
   version: e444e69cbd2e2e3e0749a2f3c717cec491552bbf
+- name: github.com/julienschmidt/httprouter
+  version: 77366a47451a56bb3ba682481eed85b64fea14e8
+- name: github.com/mitchellh/go-homedir
+  version: 1111e456ffea841564ac0fa5f69c26ef44dafec9
 - name: github.com/opencontainers/runc
   version: a513998702d02a8bb3d2444660869ed3a677680c
   subpackages:
@@ -141,6 +149,8 @@ imports:
   version: 1238ba19d24b0b9ceee2094e1cb31947d45c3e86
 - name: github.com/spf13/pflag
   version: 367864438f1b1a3c7db4da06a2f55b144e6784e0
+- name: github.com/tylerb/graceful
+  version: 510b0c61f38d9c43994a3fc85ae86465b04896a8
 - name: github.com/tylertreat/BoomFilters
   version: ae0b9585d4b87b2fe0b49ee09270abae7aaad179
 - name: github.com/vbatts/tar-split
@@ -158,6 +168,7 @@ imports:
   subpackages:
   - context
   - trace
+  - netutil
 - name: gopkg.in/cheggaaa/pb.v1
   version: 8808370bf63524e115da1371ba42bce6739f3a6b
 - name: gopkg.in/yaml.v2
