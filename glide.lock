@@ -1,5 +1,5 @@
-hash: c1582a9779a406bb34be738806118de922d0b333a178cf7993704f0101d99840
-updated: 2016-06-18T18:26:52.760105354+05:30
+hash: efc090cfcaff3bce1c97a1a48c99f71e55898b5a0c21eda31b65a2ba024ee5a2
+updated: 2016-06-19T11:56:33.451842909+05:30
 imports:
 - name: github.com/anacrolix/missinggo
   version: b58ed0d2d777019fbe0b01fb30eb3137826ec4b8
@@ -19,11 +19,11 @@ imports:
 - name: github.com/anacrolix/torrent
   version: 9b48d0c7a5bcdc3607d7c797aeb66f7a5f29908c
   subpackages:
-  - bencode
   - dht
+  - metainfo
+  - bencode
   - dht/krpc
   - iplist
-  - metainfo
   - mse
   - peer_protocol
   - storage
@@ -35,6 +35,10 @@ imports:
   version: d7ad5aff2b8a5fa415d1c1ed00b71cfd8b4c69e0
 - name: github.com/bradfitz/iter
   version: 454541ec3da2a73fc34fd049b19ee5777bf19345
+- name: github.com/chihaya/chihaya
+  version: b9900b2e127f63f3563f10043ad97ec8c82c082b
+  subpackages:
+  - pkg/event
 - name: github.com/docker/distribution
   version: c8dff1bb5764aa6ea48d261b813ef3b0d2e25989
   subpackages:
@@ -156,4 +160,6 @@ imports:
   - trace
 - name: gopkg.in/cheggaaa/pb.v1
   version: 8808370bf63524e115da1371ba42bce6739f3a6b
+- name: gopkg.in/yaml.v2
+  version: bef53efd0c76e49e6de55ead051f886bea7e9420
 devImports: []
