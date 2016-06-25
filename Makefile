@@ -29,10 +29,11 @@ all:
 	install
 
 test:
-	go test -v github.com/ind9/dops
+	go test -v github.com/ashwanthkumar/dops
+	go test -v github.com/ashwanthkumar/dops/server
 
 test-only:
-	go test -v github.com/ind9/dops/${name}
+	go test -v github.com/ashwanthkumar/dops/${name}
 
 install: build
 	sudo install -d /usr/local/bin
