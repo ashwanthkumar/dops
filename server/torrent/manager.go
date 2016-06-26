@@ -1,34 +1,37 @@
-package server
+package torrent
 
 import (
 	"time"
 
-	"github.com/anacrolix/torrent"
+	torrentlib "github.com/anacrolix/torrent"
 	"github.com/anacrolix/torrent/metainfo"
+	"github.com/ashwanthkumar/dops/config"
+	"github.com/ashwanthkumar/dops/server/storage"
 )
 
-// TorrentManager - Manages all the torrents which needs to be seeded
-type TorrentManager struct {
-	client      *torrent.Client
-	config      *Config
+// Manager - Manages all the torrents which needs to be seeded
+type Manager struct {
+	storage     *storage.Storage
+	client      *torrentlib.Client
+	config      *config.Config
 	announceURL string
 }
 
-// Init - Initializes the TorrentManager - Should be called only once during the life-time
-func (t *TorrentManager) Init(config *Config) (err error) {
+// Init - Initializes the Manager - Should be called only once during the life-time
+func (t *Manager) Init(config *config.Config) (err error) {
 	t.config = config
-	t.client, err = torrent.NewClient(config.ToTorrentConfig())
+	t.client, err = torrentlib.NewClient(config.ToTorrentConfig())
 	t.announceURL, err = config.TrackerAnnounceURL()
 	return err
 }
 
-// Start starts the TorrentManager
-func (t *TorrentManager) Start() {
+// Start starts the Manager
+func (t *Manager) Start() {
 	// TODO - Have a reaper to check the client and remove the torrent's after the seed duration
 	// go t.startTorrentReaper()
 }
 
-func (t *TorrentManager) startTorrentReaper() {
+func (t *Manager) startTorrentReaper() {
 	for _ = range time.After(10 * time.Minute) {
 		for _ = range t.client.Torrents() {
 			// TODO Check if the torrent t, has been seeding for over config.ImageSeedDuration
@@ -39,7 +42,7 @@ func (t *TorrentManager) startTorrentReaper() {
 
 // AddForSeeding - Creates a torrent out for the file and start seeding it
 // it returns the MagnetURI and an error object
-func (t *TorrentManager) AddForSeeding(path string) (string, error) {
+func (t *Manager) AddForSeeding(path string) (string, error) {
 	metaInfo, err := CreateTorrent(path, t.announceURL)
 	if err != nil {
 		return "", err
@@ -54,7 +57,7 @@ func (t *TorrentManager) AddForSeeding(path string) (string, error) {
 }
 
 // Stop - Stops the underlying torrent client
-func (t *TorrentManager) Stop() error {
+func (t *Manager) Stop() error {
 	t.client.Close()
 	return nil
 }
