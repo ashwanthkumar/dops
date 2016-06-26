@@ -1,4 +1,4 @@
-package server
+package config
 
 import (
 	"fmt"
@@ -7,6 +7,14 @@ import (
 
 	"github.com/anacrolix/torrent"
 	"github.com/ashwanthkumar/golang-utils/netutil"
+)
+
+const (
+	// AnnounceURI is the URI underwhich the tracker's announce requests are handled
+	// all generated torrents / magnet uris should have a full uri path to this
+	AnnounceURI = "/announce"
+	// ScrapeURI is the URI underwhich the tracker's scrape requests are handled
+	ScrapeURI = "/scrape"
 )
 
 var (
@@ -26,7 +34,9 @@ type Config struct {
 	// Public facing hostname of the instance running the DOPS Registry
 	PublicHost string `json:"public-host,omitempty"`
 	//  Duration for which we should be seeding
-	SeedDuration string `json:"seed-duration,omitempty"`
+	SeedDuration  string      `json:"seed-duration,omitempty"`
+	StorageType   string      `json:"storage-type,omitempty"`
+	StorageConfig interface{} `json:"storage,omitempty"`
 }
 
 // ToTorrentConfig converts our config to anacrolix's torrent config representation
