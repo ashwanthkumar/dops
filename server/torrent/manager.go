@@ -18,36 +18,31 @@ type Manager struct {
 }
 
 // Init - Initializes the Manager - Should be called only once during the life-time
-func (t *Manager) Init(config *config.Config) (err error) {
-	t.config = config
-	t.client, err = torrentlib.NewClient(config.ToTorrentConfig())
-	t.announceURL, err = config.TrackerAnnounceURL()
-	return err
+func (manager *Manager) Init(config *config.Config) (err error) {
+	manager.config = config
+	if manager.client, err = torrentlib.NewClient(config.ToTorrentConfig()); err != nil {
+		return err
+	}
+	if manager.announceURL, err = config.TrackerAnnounceURL(); err != nil {
+		return err
+	}
+	return nil
 }
 
 // Start starts the Manager
-func (t *Manager) Start() {
+func (manager *Manager) Start() {
 	// TODO - Have a reaper to check the client and remove the torrent's after the seed duration
 	// go t.startTorrentReaper()
 }
 
-func (t *Manager) startTorrentReaper() {
-	for _ = range time.After(10 * time.Minute) {
-		for _ = range t.client.Torrents() {
-			// TODO Check if the torrent t, has been seeding for over config.ImageSeedDuration
-			// if so, drop it, else keep it running
-		}
-	}
-}
-
 // AddForSeeding - Creates a torrent out for the file and start seeding it
 // it returns the MagnetURI and an error object
-func (t *Manager) AddForSeeding(path string) (string, error) {
-	metaInfo, err := CreateTorrent(path, t.announceURL)
+func (manager *Manager) AddForSeeding(path string) (string, error) {
+	metaInfo, err := CreateTorrent(path, manager.announceURL)
 	if err != nil {
 		return "", err
 	}
-	torrent, err := t.client.AddTorrent(metaInfo)
+	torrent, err := manager.client.AddTorrent(metaInfo)
 	if err != nil {
 		return "", err
 	}
@@ -56,9 +51,25 @@ func (t *Manager) AddForSeeding(path string) (string, error) {
 	return torrent.Metainfo().Magnet().String(), nil
 }
 
+// Torrents returns all the torrents that the underlying client is managing
+func (manager *Manager) Torrents() []*torrentlib.Torrent {
+	return manager.client.Torrents()
+}
+
+// RemoveTorrent removes a torrent from the underlying torrent client
+func (manager *Manager) RemoveTorrent(torrent *torrentlib.Torrent) bool {
+	t, exist := manager.client.Torrent(torrent.InfoHash())
+	if exist {
+		t.Drop()
+		return true
+	}
+
+	return false
+}
+
 // Stop - Stops the underlying torrent client
-func (t *Manager) Stop() error {
-	t.client.Close()
+func (manager *Manager) Stop() error {
+	manager.client.Close()
 	return nil
 }
 
