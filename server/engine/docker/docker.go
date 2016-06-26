@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"runtime"
 
+	"github.com/anacrolix/missinggo/pubsub"
 	"github.com/ashwanthkumar/dops/config"
-	"github.com/ashwanthkumar/dops/server/torrent"
 	"github.com/ashwanthkumar/golang-utils/worker"
 	"github.com/docker/distribution"
 	"github.com/docker/docker/reference"
@@ -18,9 +18,9 @@ import (
 
 // DockerEngine is an implementation of Container Engine
 type DockerEngine struct {
-	DataDir    string
-	TorrentMgr *torrent.Manager
-	worker     worker.Pool
+	DataDir        string
+	downloadNotify *pubsub.PubSub
+	worker         worker.Pool
 }
 
 type DownloadWork struct {
@@ -31,9 +31,15 @@ type DownloadWork struct {
 	ctx          context.Context
 }
 
-func (e DockerEngine) Init(config *config.Config, torrentMgr *torrent.Manager) error {
+type DownloadSubscription struct {
+	Image string
+	Layer string
+	Path  string
+}
+
+func (e *DockerEngine) Init(config *config.Config) error {
 	e.DataDir = config.DataDir
-	e.TorrentMgr = torrentMgr
+	e.downloadNotify = pubsub.NewPubSub()
 	e.worker = worker.Pool{
 		MaxWorkers: 5 * runtime.NumCPU(), // TODO - Make this configurable
 		Op: func(work worker.Request) error {
@@ -53,7 +59,8 @@ func (e DockerEngine) Init(config *config.Config, torrentMgr *torrent.Manager) e
 
 			info, _ := blobSvc.Stat(request.ctx, request.descriptor.Digest)
 			// TODO - See if we can skip downloading if the file exists and matches the checksum
-			f, err := os.Create(filepath.Join(request.downloadPath, info.Digest.Hex()))
+			finalFilePath := filepath.Join(request.downloadPath, info.Digest.Hex())
+			f, err := os.Create(finalFilePath)
 			if err != nil {
 				return err
 			}
@@ -69,6 +76,12 @@ func (e DockerEngine) Init(config *config.Config, torrentMgr *torrent.Manager) e
 				}
 				return fmt.Errorf("Download incomplete for %s, expected %d but got only %d\n", info.Digest.String(), info.Size, length)
 			}
+			notification := DownloadSubscription{
+				Image: request.named.Name(),
+				Layer: info.Digest.Hex(),
+				Path:  finalFilePath,
+			}
+			e.downloadNotify.Publish(notification)
 
 			return nil
 		},
@@ -76,7 +89,7 @@ func (e DockerEngine) Init(config *config.Config, torrentMgr *torrent.Manager) e
 	return nil
 }
 
-func (e DockerEngine) DownloadImage(image string, config *config.Config) error {
+func (e *DockerEngine) DownloadImage(image string, config *config.Config) error {
 	insecure := false // TODO - make this configurable
 
 	named, manifest, err := DownloadManifest(image, insecure)
@@ -94,4 +107,8 @@ func (e DockerEngine) DownloadImage(image string, config *config.Config) error {
 	}
 
 	return nil
+}
+
+func (e *DockerEngine) SubscribeDownloads() *pubsub.Subscription {
+	return e.downloadNotify.Subscribe()
 }
