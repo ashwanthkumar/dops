@@ -12,3 +12,4 @@ import:
 - package: github.com/chihaya/chihaya
 - package: github.com/julienschmidt/httprouter
 - package: github.com/mitchellh/go-homedir
+- package: github.com/ashwanthkumar/golang-utils
