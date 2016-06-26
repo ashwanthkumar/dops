@@ -14,6 +14,7 @@
 
 // Package docker provides helper methods for retrieving and parsing a
 // information from a remote Docker repository.
+// Inspired from https://github.com/coreos/quayctl/blob/50efdc2e79935a70ff35812627adb1c954058be9/dockerdist/dockerdist.go
 package docker
 
 import (
