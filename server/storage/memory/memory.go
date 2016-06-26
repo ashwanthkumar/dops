@@ -1,10 +1,13 @@
-package storage
+package memory
 
 import (
 	"fmt"
 	"sync"
 	"time"
 )
+
+// Name of the storage implementation
+const Name = "memory"
 
 // InMemoryState is a storage implementation thats hold all data in memory
 type InMemoryState struct {

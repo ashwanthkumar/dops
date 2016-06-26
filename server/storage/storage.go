@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/ashwanthkumar/dops/config"
+	"github.com/ashwanthkumar/dops/server/storage/memory"
 )
 
 // Storage handles all the state using a persistent storage underneath
@@ -26,10 +27,20 @@ type Storage interface {
 	Remove(image string) error
 }
 
+// Store holds a static reference to the storage handler once we access it via GetStorage once
+var Store Storage
+
+// GetStorage returns a Storage reference which can be used to store the registry's state
 func GetStorage(config *config.Config) (Storage, error) {
+	if Store != nil {
+		return Store, nil
+	}
+
 	switch config.StorageType {
-	case "memory":
-		return NewInMemoryState(config.StorageConfig), nil
+	case memory.Name:
+		store := memory.NewInMemoryState(config.StorageConfig)
+		Store = store
+		return store, nil
 	default:
 		return nil, fmt.Errorf("%s is a valid storage type", config.StorageType)
 	}
