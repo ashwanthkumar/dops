@@ -16,6 +16,9 @@ import (
 	"golang.org/x/net/context"
 )
 
+// Name of the ContainerEngine implementation
+const Name = "docker"
+
 // DockerEngine is an implementation of Container Engine
 type DockerEngine struct {
 	DataDir        string

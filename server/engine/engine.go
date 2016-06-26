@@ -27,12 +27,12 @@ func GetEngine(name string, config *config.Config) (ContainerEngine, error) {
 	}
 
 	switch name {
-	case "docker":
+	case docker.Name:
 		engine := &docker.DockerEngine{}
 		if err := engine.Init(config); err != nil {
 			return nil, err
 		}
-		engines["docker"] = engine
+		engines[docker.Name] = engine
 		return engine, nil
 	default:
 		return nil, fmt.Errorf("%s is not a valid implementation\n", name)
