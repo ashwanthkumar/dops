@@ -30,7 +30,12 @@ all:
 
 test:
 	go test -v github.com/ashwanthkumar/dops
+	go test -v github.com/ashwanthkumar/dops/config
 	go test -v github.com/ashwanthkumar/dops/server
+	go test -v github.com/ashwanthkumar/dops/server/torrent
+	go test -v github.com/ashwanthkumar/dops/server/storage
+	go test -v github.com/ashwanthkumar/dops/server/engine
+	go test -v github.com/ashwanthkumar/dops/server/engine/docker
 
 test-only:
 	go test -v github.com/ashwanthkumar/dops/${name}
