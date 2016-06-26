@@ -92,14 +92,15 @@ func (e *DockerEngine) Init(config *config.Config) error {
 	return nil
 }
 
-func (e *DockerEngine) DownloadImage(image string, config *config.Config) error {
+func (e *DockerEngine) ScheduleImage(image string, config *config.Config) ([]string, error) {
 	insecure := false // TODO - make this configurable
 
 	named, manifest, err := DownloadManifest(image, insecure)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
+	var layers []string
 	for _, descriptor := range manifest.References() {
 		work := DownloadWork{
 			named:      named,
@@ -107,9 +108,10 @@ func (e *DockerEngine) DownloadImage(image string, config *config.Config) error 
 			descriptor: &descriptor,
 		}
 		e.worker.AddWork(work)
+		layers = append(layers, descriptor.Digest.Hex())
 	}
 
-	return nil
+	return layers, nil
 }
 
 func (e *DockerEngine) SubscribeDownloads() *pubsub.Subscription {

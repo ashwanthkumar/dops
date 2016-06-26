@@ -12,7 +12,10 @@ import (
 // engine, etc. Currently we only have doker implementation
 type ContainerEngine interface {
 	Init(config *config.Config) error
-	DownloadImage(image string, config *config.Config) error
+	// ScheduleImage schedules downloading of all the layers for the image in the Background
+	// it returns the list of layers (Hex value) that'll be downloaded. One can subscribe
+	// to the layer downloads using SubscribeDownloads()
+	ScheduleImage(image string, config *config.Config) ([]string, error)
 	SubscribeDownloads() *pubsub.Subscription
 }
 
