@@ -1,5 +1,5 @@
 hash: d068a512ff056b4fb73fac80674dda250865aabbdcfce9215cb872ca67010b66
-updated: 2016-06-26T19:47:50.021601341+05:30
+updated: 2016-06-26T21:02:59.65427182+05:30
 imports:
 - name: github.com/anacrolix/missinggo
   version: 5aa02b9783d3b657398ba15633210ed2fe59bd60
@@ -34,9 +34,10 @@ imports:
 - name: github.com/anacrolix/utp
   version: d7ad5aff2b8a5fa415d1c1ed00b71cfd8b4c69e0
 - name: github.com/ashwanthkumar/golang-utils
-  version: db7ca7a2a58407d9766bd8c53fbc26797a8efe87
+  version: ca70cd2b7edf2c1e819bbb0299a4e158f173d1cc
   subpackages:
   - netutil
+  - worker
 - name: github.com/bradfitz/iter
   version: 454541ec3da2a73fc34fd049b19ee5777bf19345
 - name: github.com/chihaya/chihaya
@@ -148,6 +149,10 @@ imports:
   version: 14f550f51af52180c2eefed15e5fd18d63c0a64a
 - name: github.com/gorilla/mux
   version: e444e69cbd2e2e3e0749a2f3c717cec491552bbf
+- name: github.com/hashicorp/errwrap
+  version: 7554cd9344cec97297fa6649b055a8c98c2a1e55
+- name: github.com/hashicorp/go-multierror
+  version: d30f09973e19c1dfcd120b2d9c4f168e68d6b5d5
 - name: github.com/julienschmidt/httprouter
   version: 77366a47451a56bb3ba682481eed85b64fea14e8
 - name: github.com/mattn/go-sqlite3
