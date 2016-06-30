@@ -8,13 +8,14 @@ import (
 	"net"
 	"net/http"
 
+	"github.com/ashwanthkumar/dops/config"
 	"github.com/chihaya/chihaya"
 	"github.com/chihaya/chihaya/pkg/event"
 	"github.com/chihaya/chihaya/server/http/query"
 	"github.com/chihaya/chihaya/tracker"
 )
 
-func announceRequest(r *http.Request, cfg *httpConfig) (*chihaya.AnnounceRequest, error) {
+func announceRequest(r *http.Request, cfg *config.TrackerConfig) (*chihaya.AnnounceRequest, error) {
 	q, err := query.New(r.URL.RawQuery)
 	if err != nil {
 		return nil, err
@@ -88,7 +89,7 @@ func announceRequest(r *http.Request, cfg *httpConfig) (*chihaya.AnnounceRequest
 	return request, nil
 }
 
-func scrapeRequest(r *http.Request, cfg *httpConfig) (*chihaya.ScrapeRequest, error) {
+func scrapeRequest(r *http.Request, cfg *config.TrackerConfig) (*chihaya.ScrapeRequest, error) {
 	q, err := query.New(r.URL.RawQuery)
 	if err != nil {
 		return nil, err
@@ -109,7 +110,7 @@ func scrapeRequest(r *http.Request, cfg *httpConfig) (*chihaya.ScrapeRequest, er
 
 // requestedIP returns the IP address for a request. If there are multiple in
 // the request, one IPv4 and one IPv6 will be returned.
-func requestedIP(p chihaya.Params, r *http.Request, cfg *httpConfig) (v4, v6 net.IP, err error) {
+func requestedIP(p chihaya.Params, r *http.Request, cfg *config.TrackerConfig) (v4, v6 net.IP, err error) {
 	var done bool
 
 	if cfg.AllowIPSpoofing {
@@ -157,7 +158,7 @@ func requestedIP(p chihaya.Params, r *http.Request, cfg *httpConfig) (v4, v6 net
 	return
 }
 
-func getIPs(ipstr string, ipv4, ipv6 net.IP, cfg *httpConfig) (net.IP, net.IP, bool) {
+func getIPs(ipstr string, ipv4, ipv6 net.IP, cfg *config.TrackerConfig) (net.IP, net.IP, bool) {
 	host, _, err := net.SplitHostPort(ipstr)
 	if err != nil {
 		host = ipstr

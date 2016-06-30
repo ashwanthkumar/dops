@@ -7,6 +7,7 @@ import (
 
 	"github.com/anacrolix/torrent"
 	"github.com/ashwanthkumar/golang-utils/netutil"
+	"github.com/chihaya/chihaya"
 )
 
 const (
@@ -34,9 +35,20 @@ type Config struct {
 	// Public facing hostname of the instance running the DOPS Registry
 	PublicHost string `json:"public-host,omitempty"`
 	//  Duration for which we should be seeding
-	SeedDuration  string      `json:"seed-duration,omitempty"`
-	StorageType   string      `json:"storage-type,omitempty"`
-	StorageConfig interface{} `json:"storage,omitempty"`
+	SeedDuration  string        `json:"seed-duration,omitempty"`
+	StorageType   string        `json:"storage-type,omitempty"`
+	StorageConfig interface{}   `json:"storage,omitempty"`
+	TrackerConfig TrackerConfig `json:"tracker"`
+}
+
+// TrackerConfig holds tracker related settings
+type TrackerConfig struct {
+	AllowIPSpoofing  bool   `json:"allow-ip-spoofing,omitempty"`
+	DualStackedPeers bool   `json:"dual-stacked-peers,omitempty"`
+	RealIPHeader     string `json:"real-ip-header,omitempty"`
+	// Drop in values for https://godoc.org/github.com/chihaya/chihaya#TrackerConfig
+	AnnounceInterval    time.Duration `json:"announce-interval,omitempty"`
+	MinAnnounceInterval time.Duration `json:"min-announce-interval,omitempty"`
 }
 
 // ToTorrentConfig converts our config to anacrolix's torrent config representation
@@ -83,4 +95,12 @@ func (c *Config) ImageSeedDuration() (time.Duration, error) {
 		return time.ParseDuration(c.SeedDuration)
 	}
 	return DefaultSeedDuration, nil
+}
+
+// ToChihayaTrackerConfig generates the TrackerConfig required for chihaya tracker
+func (c *Config) ToChihayaTrackerConfig() *chihaya.TrackerConfig {
+	return &chihaya.TrackerConfig{
+		AnnounceInterval:    c.TrackerConfig.AnnounceInterval,
+		MinAnnounceInterval: c.TrackerConfig.MinAnnounceInterval,
+	}
 }
