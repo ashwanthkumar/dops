@@ -11,22 +11,27 @@ import (
 
 // Manager - Manages all the torrents which needs to be seeded
 type Manager struct {
-	storage     *storage.Storage
-	client      *torrentlib.Client
 	config      *config.Config
+	storage     storage.Storage
+	client      *torrentlib.Client
 	announceURL string
 }
 
-// Init - Initializes the Manager - Should be called only once during the life-time
-func (manager *Manager) Init(config *config.Config) (err error) {
+// New creates new Manager instance
+func New(config *config.Config) (*Manager, error) {
+	var err error
+	manager := &Manager{}
 	manager.config = config
+	if manager.storage, err = storage.GetStorage(config); err != nil {
+		return nil, err
+	}
 	if manager.client, err = torrentlib.NewClient(config.ToTorrentConfig()); err != nil {
-		return err
+		return nil, err
 	}
 	if manager.announceURL, err = config.TrackerAnnounceURL(); err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return manager, nil
 }
 
 // Start starts the Manager
